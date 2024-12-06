@@ -1,6 +1,9 @@
-use std::fs;
+use std::{fs, time::Instant};
 
 fn main() {
+
+    let start = Instant::now();
+
     let content = fs::read_to_string("src/input.txt").expect("shouldve been able to read file");
 
     let grid: Vec<Vec<char>> = content.lines().map(|line| line.chars().collect()).collect();
@@ -31,23 +34,22 @@ fn main() {
                         if neighbor_letter == 'M' {
                             if let Some(neighbor_letter) = get_cell(&grid, reverse_new_x, reverse_new_y) {
                                 if neighbor_letter == 'S' {
-                                    line_in_x_counter += 1
+                                    line_in_x_counter += 1;
+                                    if line_in_x_counter == 2 {
+                                        counter +=1;
+                                        break;
+                                    }
                                 }
                             }
 
                         }
                     }
-
-                }
-
-                if line_in_x_counter == 2 {
-                    counter += 1;
                 }
             }
         }
     }
 
-    println!("an X-MAS appears {} times.", counter);
+    println!("an X-MAS appears {} times. It took {:?} to find all of them.", counter, start.elapsed());
 }
 
 fn get_cell(grid: &Vec<Vec<char>>, x: i32, y: i32) -> Option<char> {

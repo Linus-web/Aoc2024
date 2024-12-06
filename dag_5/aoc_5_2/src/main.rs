@@ -61,12 +61,13 @@ fn sort_incorrect_orders(rules: &HashMap<i32, Vec<i32>>, incorrect: &mut Vec<Vec
         let mut sorted = false;
 
         while !sorted {
-            sorted = true; 
+            sorted = true;  
 
             for i in 0..order.len() {
                 if let Some(nums_that_need_to_be_after) = rules.get(&order[i]) {
                     for j in (0..i).rev() {
                         if nums_that_need_to_be_after.contains(&order[j]) {
+                            
                             order.swap(i, j);
                             sorted = false; 
                         }

@@ -4,3 +4,27 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+
+
+
+[build]
+jobs = 4                      # Number of parallel jobs, adjust based on your CPU cores
+rustc = "rustc"               # Rust compiler tool
+target-dir = "target"         # Directory for generated artifacts
+incremental = false           # Disable incremental compilation for fully optimized builds
+
+
+
+[profile.release]             # Release profile for maximum optimization
+opt-level = 3                 # Maximum optimization level
+debug = false                 # Exclude debug info for performance
+split-debuginfo = "off"       # Disable debug info splitting
+strip = "symbols"             # Strip symbols to reduce binary size
+debug-assertions = false      # Disable debug assertions for performance
+overflow-checks = false       # Disable runtime integer overflow checks
+lto = "fat"                   # Enable full link-time optimization
+panic = "abort"               # Use the "abort" panic strategy for minimal binary size
+incremental = false           # Disable incremental compilation
+codegen-units = 1             # Use a single codegen unit for better optimizations
+rpath = false                 # Disable runtime path linking
+
